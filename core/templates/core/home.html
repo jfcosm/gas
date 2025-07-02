@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2>Busca tu cilindro de gas</h2>
+<form method="get">
+    <label for="region">Región:</label>
+    <input type="text" id="region" name="region" required><br><br>
+
+    <label for="comuna">Comuna:</label>
+    <input type="text" id="comuna" name="comuna" required><br><br>
+
+    <label for="tamano">Tamaño del cilindro:</label>
+    <select name="tamano" id="tamano" required>
+        <option value="5">5 kilos</option>
+        <option value="15">15 kilos</option>
+        <option value="45">45 kilos</option>
+    </select><br><br>
+
+    <button type="submit">Buscar mejor precio</button>
+</form>
+{% endblock %}
