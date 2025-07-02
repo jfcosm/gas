@@ -1,84 +1,88 @@
+
+
 {% extends 'core/base.html' %}
-{% load humanize %}
+
+{% load static %}
 
 {% block content %}
-<section class="hero">
-    <h2>Encuentra el mejor precio de gas en tu comuna</h2>
-    <p>Compara precios de cilindros de gas de 5, 15 y 45 kilos en tu región, sin intermediarios, con retiro en el local.</p>
-</section>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-<section class="form-section mt-4">
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+  .hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 3rem 1rem;
+    background-color: #f8f9fa;
+  }
+  .hero-text {
+    flex: 1;
+    padding: 1rem;
+  }
+  .hero-text h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+  .hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-image {
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+  }
+  .hero-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  .btn-buscar {
+    background-color: #ff9f00;
+    color: white;
+    font-weight: bold;
+  }
+</style>
+
+<div class="hero-section">
+  <div class="hero-text">
+    <h1>Encuentra el precio más barato del gas en tu comuna</h1>
+    <p>Consulta distribuidores locales de cilindros de gas de 5, 15 o 45 kilos en tu región.</p>
+    
     <form method="get">
-        <div class="form-group">
-            <label for="region">Región</label>
-            <select id="region" name="region" required>
-                <option value="" disabled selected>Selecciona una región</option>
-                {% for region in regiones %}
-                <option value="{{ region }}">{{ region }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="comuna">Comuna</label>
-            <select id="comuna" name="comuna" required>
-                <option value="" disabled selected>Selecciona una comuna</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="tamano">Tamaño del cilindro</label>
-            <select name="tamano" id="tamano" required>
-                <option value="" disabled selected>Selecciona un tamaño</option>
-                <option value="5">5 kilos</option>
-                <option value="15">15 kilos</option>
-                <option value="45">45 kilos</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Buscar mejor precio</button>
+      <div class="mb-3">
+        <label for="region" class="form-label">Región</label>
+        <select id="region" name="region" class="form-control" required>
+          <option value="">Seleccione una región</option>
+          {% for r in regiones %}
+            <option value="{{ r }}" {% if request.GET.region == r %}selected{% endif %}>{{ r }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="comuna" class="form-label">Comuna</label>
+        <select id="comuna" name="comuna" class="form-control" required>
+          <option value="">Seleccione una comuna</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="tamano" class="form-label">Tamaño de cilindro</label>
+        <select id="tamano" name="tamano" class="form-control" required>
+          <option value="">Seleccione tamaño</option>
+          <option value="5" {% if request.GET.tamano == '5' %}selected{% endif %}>5 kg</option>
+          <option value="15" {% if request.GET.tamano == '15' %}selected{% endif %}>15 kg</option>
+          <option value="45" {% if request.GET.tamano == '45' %}selected{% endif %}>45 kg</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-buscar">Buscar precios</button>
     </form>
-</section>
+  </div>
 
-{% if resultados %}
-<section class="resultado mt-4">
-    <h3>Distribuidores disponibles en {{ resultados.0.comuna }}</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Distribuidor</th>
-                <th>Dirección</th>
-                <th>Precio</th>
-                <th>Mapa</th>
-                <th>Actualizado</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in resultados %}
-            <tr>
-                <td>{{ item.nombre }}</td>
-                <td>{{ item.direccion }}</td>
-                <td>${{ item.precio|intcomma }}</td>
-                <td>
-                    {% if item.url_mapa %}
-                    <a href="{{ item.url_mapa }}" target="_blank">Ver</a>
-                    {% else %}
-                    -
-                    {% endif %}
-                </td>
-                <td>{{ item.actualizado|date:"d/m/Y H:i" }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
-{% elif resultado_simulado %}
-<section class="resultado mt-4">
-    <h3>Sin datos reales</h3>
-    <p><strong>Comuna:</strong> {{ resultado_simulado.comuna }}</p>
-    <p><strong>Tamaño:</strong> {{ resultado_simulado.tamano }} kilos</p>
-    <p><strong>Precio estimado:</strong> {{ resultado_simulado.precio }}</p>
-    <p><strong>Distribuidor:</strong> {{ resultado_simulado.distribuidor }}</p>
-</section>
-{% endif %}
+  <div class="hero-image">
+    <img src="{% static 'core/img/gas-home-ilustracion.png' %}" alt="Ilustración Gas" />
+  </div>
+</div>
 {% endblock %}
