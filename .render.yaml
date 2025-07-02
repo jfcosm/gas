@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: gas
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn gas.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: gas.settings
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: SECRET_KEY
+        value: django-insecure-$6jf!1wf@wr9y3ww9wz9+i953j9ba&p(tqszbw(bg(^23iei8z
+      - key: DEBUG
+        value: False

@@ -123,7 +123,9 @@
   document.addEventListener("DOMContentLoaded", function () {
     const resultado = document.querySelector(".resultado");
     if (resultado) {
-      resultado.scrollIntoView({ behavior: 'smooth' });
+      const yOffset = -100;  // margen superior
+      const y = resultado.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   });
 </script>
