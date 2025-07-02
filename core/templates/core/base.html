@@ -2,24 +2,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poetsen+One&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Gas - Mejores precios de cilindros</title>
+    <title>¡El Gas Barato! - Los mejores precios en cilindros de gas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1><a href="{% url 'home' %}">Gas.cl</a></h1>
-        <p>Encuentra el mejor precio de gas en tu comuna</p>
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="{% url 'home' %}">¡El Gas Barato!</a>
+            </div>
+            <button class="navbar-toggle" id="navbarToggle">&#9776;</button>
+            <nav class="navbar-links" id="navbarMenu">
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'panel_distribuidor' %}">Mi Panel</a></li>
+                        <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                        <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        {% block content %}
-        {% endblock %}
+    <main class="main-content">
+        {% if messages %}
+            <div class="mensaje-contenedor">
+                {% for message in messages %}
+                    <div class="mensaje-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; 2025 - Proyecto Gas</p>
+    <footer class="footer">
+        &copy; 2025 - El Gas Barato  v1.0 es un desarrollo de
+            <strong>
+                <a href="https://www.melodialab.pro" target="_blank" class="text-decoration-none">
+                    MelodIA La♭
+                </a>
     </footer>
+
+    <script>
+        const toggle = document.getElementById('navbarToggle');
+        const menu = document.getElementById('navbarMenu');
+        toggle.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+    <script src="{% static 'js/cargar_comunas.js' %}"></script>
+
 </body>
 </html>

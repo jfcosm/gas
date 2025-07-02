@@ -1,0 +1,4 @@
+nombre,region,comuna,direccion,latitud,longitud,url_mapa,tamano_cilindro,precio
+Gas Sur Limitada,Región Metropolitana de Santiago,Puente Alto,Avenida Las Nieves 123,-33.6097,-70.5750,https://maps.google.com/...,5,10500
+Gasco Express,Región Metropolitana de Santiago,Puente Alto,Calle Uno 456,-33.6101,-70.5772,https://maps.google.com/...,15,26500
+Distribuidora Lipi,Coquimbo,La Serena,Calle Gasfitería 321,-29.9056,-71.2481,,45,68500

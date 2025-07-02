@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Iniciar sesión</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mt-2">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+      <div class="mb-3">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Entrar</button>
+    <a href="{% url 'registro' %}" class="btn btn-link">Registrarse como distribuidor</a>
+  </form>
+</div>
+{% endblock %}

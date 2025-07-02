@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Registro de Distribuidor</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mt-2">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+      <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Registrarme</button>
+    <a href="{% url 'login' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Carga dinámica de comunas según región seleccionada
+document.addEventListener("DOMContentLoaded", function() {
+  const regionSelect = document.getElementById("id_region");
+  const comunaSelect = document.getElementById("id_comuna");
+
+  if (!regionSelect || !comunaSelect) return;
+
+  fetch("{% static 'core/data/comunas_regiones.json' %}")
+    .then(response => response.json())
+    .then(data => {
+      const regiones = data.regiones;
+
+      regionSelect.addEventListener("change", function() {
+        const regionSeleccionada = this.value;
+        const regionData = regiones.find(r => r.region === regionSeleccionada);
+
+        // Limpiar opciones actuales
+        comunaSelect.innerHTML = "";
+
+        if (regionData) {
+          regionData.comunas.forEach(comuna => {
+            const option = document.createElement("option");
+            option.value = comuna;
+            option.textContent = comuna;
+            comunaSelect.appendChild(option);
+          });
+        }
+      });
+    })
+    .catch(error => {
+      console.error("Error al cargar comunas_regiones.json:", error);
+    });
+});
+</script>
+{% endblock %}

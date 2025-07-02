@@ -1,20 +1,360 @@
+/* Reset básico */
+body, h1, h2, p, input, select, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f2f2f2;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
 }
+
+/* ENCABEZADO */
 header {
-    background: #003366;
+    background: linear-gradient(to right, #005cbe, #2597df);
     color: white;
-    padding: 10px 20px;
-}
-main {
-    background: white;
     padding: 20px;
+    text-align: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* SEPARACIONES */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* HERO */
+.hero h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.hero p {
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* FORMULARIOS */
+.form-section {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* BOTONES */
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s ease;
+    text-decoration: none;
     margin-top: 10px;
 }
+
+.btn-buscar,
+.btn-primary {
+    background: #0066a6;
+    color: white;
+}
+
+.btn-buscar:hover,
+.btn-primary:hover {
+    background: #007ac0;
+}
+
+.btn-success {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #388e3c;
+}
+
+/* TABLAS DE RESULTADOS */
+.resultado {
+    margin-top: 30px;
+    padding: 20px;
+    background: #e3f4e0;
+    border-left: 6px solid #4CAF50;
+    border-radius: 8px;
+}
+
+.resultado h3 {
+    margin-bottom: 10px;
+    color: #2e7d32;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #005387;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* PIE DE PÁGINA */
 footer {
     text-align: center;
-    margin-top: 20px;
+    font-size: 13px;
+    padding: 15px;
     color: #666;
+    margin-top: 40px;
+}
+
+
+.mensaje-contenedor {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.mensaje-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 6px solid #28a745;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.mensaje-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 6px solid #dc3545;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.mensaje-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-left: 6px solid #ffc107;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.mensaje-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-left: 6px solid #17a2b8;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+/* Navbar moderna */
+.navbar {
+    background-color: #004d7a;
+    color: #ffffff;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.navbar-logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-links ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #ffcc00;
+}
+
+/* Mensajes */
+.mensaje-contenedor {
+    max-width: 1100px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+}
+
+.mensaje-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.mensaje-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: #f8f9fa;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.main-content {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Estilo del botón hamburguesa */
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-wrap: wrap;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-links {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        background-color: #004d7a;
+        padding: 1rem 0;
+    }
+
+    .navbar-links ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .navbar-links ul li {
+        width: 100%;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-links ul li a {
+        width: 100%;
+        display: block;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+}
+
+
+/* Tipografía global */
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Logo de la navbar con Poetsen One */
+.navbar-logo a,
+h1 a {
+    font-family: 'Poetsen One', cursive;
+    font-size: 2rem;
+    text-decoration: none;
+    color: #ffffff;
 }

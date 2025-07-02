@@ -1,21 +1,84 @@
 {% extends 'core/base.html' %}
+{% load humanize %}
 
 {% block content %}
-<h2>Busca tu cilindro de gas</h2>
-<form method="get">
-    <label for="region">Región:</label>
-    <input type="text" id="region" name="region" required><br><br>
+<section class="hero">
+    <h2>Encuentra el mejor precio de gas en tu comuna</h2>
+    <p>Compara precios de cilindros de gas de 5, 15 y 45 kilos en tu región, sin intermediarios, con retiro en el local.</p>
+</section>
 
-    <label for="comuna">Comuna:</label>
-    <input type="text" id="comuna" name="comuna" required><br><br>
+<section class="form-section mt-4">
+    <form method="get">
+        <div class="form-group">
+            <label for="region">Región</label>
+            <select id="region" name="region" required>
+                <option value="" disabled selected>Selecciona una región</option>
+                {% for region in regiones %}
+                <option value="{{ region }}">{{ region }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <label for="tamano">Tamaño del cilindro:</label>
-    <select name="tamano" id="tamano" required>
-        <option value="5">5 kilos</option>
-        <option value="15">15 kilos</option>
-        <option value="45">45 kilos</option>
-    </select><br><br>
+        <div class="form-group">
+            <label for="comuna">Comuna</label>
+            <select id="comuna" name="comuna" required>
+                <option value="" disabled selected>Selecciona una comuna</option>
+            </select>
+        </div>
 
-    <button type="submit">Buscar mejor precio</button>
-</form>
+        <div class="form-group">
+            <label for="tamano">Tamaño del cilindro</label>
+            <select name="tamano" id="tamano" required>
+                <option value="" disabled selected>Selecciona un tamaño</option>
+                <option value="5">5 kilos</option>
+                <option value="15">15 kilos</option>
+                <option value="45">45 kilos</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Buscar mejor precio</button>
+    </form>
+</section>
+
+{% if resultados %}
+<section class="resultado mt-4">
+    <h3>Distribuidores disponibles en {{ resultados.0.comuna }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Distribuidor</th>
+                <th>Dirección</th>
+                <th>Precio</th>
+                <th>Mapa</th>
+                <th>Actualizado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in resultados %}
+            <tr>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.direccion }}</td>
+                <td>${{ item.precio|intcomma }}</td>
+                <td>
+                    {% if item.url_mapa %}
+                    <a href="{{ item.url_mapa }}" target="_blank">Ver</a>
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>{{ item.actualizado|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% elif resultado_simulado %}
+<section class="resultado mt-4">
+    <h3>Sin datos reales</h3>
+    <p><strong>Comuna:</strong> {{ resultado_simulado.comuna }}</p>
+    <p><strong>Tamaño:</strong> {{ resultado_simulado.tamano }} kilos</p>
+    <p><strong>Precio estimado:</strong> {{ resultado_simulado.precio }}</p>
+    <p><strong>Distribuidor:</strong> {{ resultado_simulado.distribuidor }}</p>
+</section>
+{% endif %}
 {% endblock %}

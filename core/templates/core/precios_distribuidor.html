@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Mis precios publicados</h2>
+<a href="{% url 'agregar_precio' %}">Agregar nuevo precio</a>
+<ul>
+    {% for p in precios %}
+    <li>
+        {{ p.tamano_cilindro }}kg - ${{ p.precio }} - {{ p.comuna }}
+        (<a href="{% url 'editar_precio' p.pk %}">Editar</a>)
+    </li>
+    {% empty %}
+    <li>No tienes precios publicados aún.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

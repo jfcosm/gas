@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">Mis precios publicados</h2>
+
+  <div class="mb-3">
+    <a href="{% url 'agregar_precio' %}" class="btn btn-success">Agregar nuevo precio</a>
+  </div>
+
+  {% if precios %}
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-primary">
+          <tr>
+            <th>Región</th>
+            <th>Comuna</th>
+            <th>Marca</th>
+            <th>Tamaño</th>
+            <th>Precio</th>
+            <th>Actualizado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in precios %}
+          <tr>
+            <td>{{ item.region }}</td>
+            <td>{{ item.comuna }}</td>
+            <td>{{ item.marca }}</td>
+            <td>{{ item.tamano_cilindro }} kg</td>
+            <td>${{ item.precio|intcomma }}</td>
+            <td>{{ item.actualizado|date:"d/m/Y H:i" }}</td>
+            <td>
+              <a href="{% url 'editar_precio' item.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No has publicado precios aún.</p>
+  {% endif %}
+</div>
+{% endblock %}
