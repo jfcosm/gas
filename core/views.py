@@ -95,6 +95,7 @@ def agregar_precio(request):
 @login_required
 def editar_precio(request, pk):
     precio = get_object_or_404(DistribuidorPrecio, pk=pk, distribuidor=request.user)
+    
     if request.method == 'POST':
         form = DistribuidorPrecioForm(request.POST, instance=precio)
         if form.is_valid():
@@ -103,3 +104,7 @@ def editar_precio(request, pk):
             return redirect('panel_distribuidor')
         else:
             messages.error(request, 'Revisa los errores del formulario.')
+    else:
+        form = DistribuidorPrecioForm(instance=precio)
+
+    return render(request, 'core/editar_precio.html', {'form': form})

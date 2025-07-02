@@ -1,30 +1,62 @@
+
+
+
 {% extends 'core/base.html' %}
 
+<!-- <style>
+  .test-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  .test-form-box {
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  form .form-label,
+  form select,
+  form input {
+    width: 100%;
+    display: block;
+  }
+</style> -->
+
 {% block content %}
-<div class="container mt-4">
-  <h2>Agregar precio de cilindro</h2>
+<div class="test-wrapper">
+  <div class="test-form-box">
+    <h2 class="mb-4 text-center">Agregar precio de cilindro</h2>
 
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} mt-2">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
 
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form.visible_fields %}
-      <div class="mb-3">
-        <label class="form-label">{{ field.label }}</label>
-        {{ field }}
-        {% if field.errors %}
-          <div class="text-danger">{{ field.errors }}</div>
-        {% endif %}
-      </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-success">Guardar</button>
-    <a href="{% url 'panel_distribuidor' %}" class="btn btn-secondary">Cancelar</a>
-  </form>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-flex justify-content-between gap-2">
+  <a href="{% url 'panel_distribuidor' %}" class="btn btn-warning w-50">← Cancelar</a>
+  <button type="submit" class="btn btn-warning w-50">💾 Guardar</button>
+</div>
+
+    </form>
+  </div>
 </div>
 {% endblock %}

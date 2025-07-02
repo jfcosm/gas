@@ -23,8 +23,11 @@
         {% endif %}
       </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Actualizar</button>
-    <a href="{% url 'panel_distribuidor' %}" class="btn btn-secondary">Cancelar</a>
+    <div class="d-flex justify-content-between gap-2">
+  <a href="{% url 'panel_distribuidor' %}" class="btn btn-warning w-50">← Cancelar</a>
+  <button type="submit" class="btn btn-warning w-50">💾 Guardar</button>
+</div>
+
   </form>
 </div>
 {% endblock %}

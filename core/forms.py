@@ -95,6 +95,8 @@ class DistribuidorPrecioForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
         # Carga regiones y comunas desde el JSON
         regiones, comunas = cargar_regiones_comunas()
