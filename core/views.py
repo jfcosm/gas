@@ -27,31 +27,36 @@ def home(request):
     comuna = request.GET.get("comuna")
     tamano = request.GET.get("tamano")
 
-    resultados = []
+    resultados_retiro = []
+    resultados_despacho = []
     resultado_simulado = None
 
     if region and comuna and tamano:
-        resultados = DistribuidorPrecio.objects.filter(
+        resultados_retiro = DistribuidorPrecio.objects.filter(
             region=region,
             comuna=comuna,
-            tamano_cilindro=int(tamano)
-        ).order_by('precio')
+            tamano_cilindro=int(tamano),
+            precio_retiro__isnull=False
+        ).exclude(precio_retiro=0).order_by('precio_retiro')
 
-        if not resultados.exists():
-            precio_base = PRECIOS_BASE.get(tamano, 99999)
-            resultado_simulado = {
-                "comuna": comuna,
-                "tamano": tamano,
-                "precio": f"${precio_base:,}".replace(",", "."),
-                "distribuidor": f"Distribuidora Gas {comuna} (simulado)",
-            }
+        resultados_despacho = DistribuidorPrecio.objects.filter(
+            region=region,
+            comuna=comuna,
+            tamano_cilindro=int(tamano),
+            precio_despacho__isnull=False
+        ).exclude(precio_despacho=0).order_by('precio_despacho')
+
+        if not resultados_retiro.exists() and not resultados_despacho.exists():
+            resultado_simulado = None
 
     return render(request, 'core/home.html', {
         'regiones': regiones,
         'comunas_por_region': comunas_por_region,
-        'resultados': resultados,
+        'resultados_retiro': resultados_retiro,
+        'resultados_despacho': resultados_despacho,
         'resultado_simulado': resultado_simulado,
     })
+
 
 
 def registro_distribuidor(request):
@@ -108,3 +113,7 @@ def editar_precio(request, pk):
         form = DistribuidorPrecioForm(instance=precio)
 
     return render(request, 'core/editar_precio.html', {'form': form})
+
+
+def como_funciona(request):
+    return render(request, 'core/como_funciona.html')

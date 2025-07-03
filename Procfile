@@ -1,1 +1,1 @@
-web: gunicorn gas.wsgi
+web: gunicorn gas_project.wsgi

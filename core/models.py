@@ -27,8 +27,9 @@ class DistribuidorPrecio(models.Model):
     longitud = models.FloatField(null=True, blank=True)
     url_mapa = models.URLField(blank=True)
     tamano_cilindro = models.IntegerField(choices=TAMANOS_CILINDRO)
-    precio = models.PositiveIntegerField()
+    precio_retiro = models.PositiveIntegerField(null=True, blank=True)
+    precio_despacho = models.PositiveIntegerField(null=True, blank=True)
     actualizado = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.nombre} - {self.comuna} - {self.tamano_cilindro}kg - ${self.precio}"
+        return f"{self.nombre} - {self.comuna} - {self.tamano_cilindro}kg - Retiro: ${self.precio_retiro} / Despacho: ${self.precio_despacho}"

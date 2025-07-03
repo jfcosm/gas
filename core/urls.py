@@ -22,4 +22,6 @@ urlpatterns = [
     path('panel/', panel_distribuidor, name='panel_distribuidor'),
     path('panel/agregar/', agregar_precio, name='agregar_precio'),
     path('panel/editar/<int:pk>/', editar_precio, name='editar_precio'),
+    path('como-funciona/', views.como_funciona, name='como_funciona'),
+
 ]

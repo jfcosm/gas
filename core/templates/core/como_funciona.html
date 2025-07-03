@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-4 text-center">¿Cómo funciona El Gas Barato?</h1>
+  
+  <p class="lead text-center">
+    Esta plataforma comunitaria tiene un objetivo claro: <strong>ayudarte a encontrar el mejor precio del gas en tu comuna</strong>.
+  </p>
+
+  <hr class="my-4">
+
+  <h3>👤 Para los visitantes</h3>
+  <p>
+    Al ingresar tu región, comuna y el tamaño del cilindro que buscas, nuestra app muestra los precios disponibles en tu localidad, ordenados de menor a mayor. Así puedes comparar y elegir fácilmente la mejor opción, sin importar la marca.
+  </p>
+
+  <h3>⭐ Para los distribuidores</h3>
+  <p>
+    Los distribuidores tienen un rol <strong>fundamental</strong> en esta plataforma. Son ellos quienes ingresan los precios de sus cilindros, actualizando las ofertas disponibles. Al hacerlo, ganan visibilidad, generan confianza y atraen más clientes.
+  </p>
+  <p>
+    Si eres distribuidor, <a href="{% url 'registro' %}">regístrate aquí</a> y comienza a publicar tus precios hoy.
+  </p>
+
+  <h3>🤝 Comunidad en acción</h3>
+  <p>
+    Gracias a la colaboración de usuarios y distribuidores, mantenemos actualizados los precios reales. La comunidad crece con cada aporte, ayudando a que todos accedamos a mejores precios, más justos y transparentes.
+  </p>
+
+  <div class="text-center mt-5">
+    <a href="{% url 'home' %}" class="btn btn-primary">Volver al inicio</a>
+  </div>
+</div>
+{% endblock %}

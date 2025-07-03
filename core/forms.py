@@ -82,7 +82,7 @@ class DistribuidorPrecioForm(forms.ModelForm):
 
     class Meta:
         model = DistribuidorPrecio
-        fields = ['nombre', 'region', 'comuna', 'tamano_cilindro', 'precio', 'direccion', 'url_mapa']
+        fields = ['nombre', 'region', 'comuna', 'tamano_cilindro', 'precio_retiro','precio_despacho', 'direccion', 'url_mapa']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'region': forms.Select(attrs={'class': 'form-control'}),

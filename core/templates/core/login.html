@@ -23,8 +23,17 @@
         {% endif %}
       </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Entrar</button>
-    <a href="{% url 'registro' %}" class="btn btn-link">Registrarse como distribuidor</a>
+  
+
+    <div class="d-flex justify-content-between gap-2">
+  <button type="submit" class="btn btn-warning w-50">🚪 Entrar</button>
+    <a href="{% url 'registro' %}" class="btn btn-warning w-50">📋 Registrarse como distribuidor</a>
+</div>
   </form>
 </div>
 {% endblock %}
+
+
+
+
+

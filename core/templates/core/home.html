@@ -1,6 +1,7 @@
 
 
 {% extends 'core/base.html' %}
+{% load custom_filters %}
 
 {% load static %}
 {% load humanize %}
@@ -16,12 +17,12 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 3rem 1rem;
+    padding: 1rem 1rem;
     background-color: #f8f9fa;
   }
   .hero-text {
     flex: 1;
-    padding: 1rem;
+    /* padding: 1rem; */
   }
   .hero-text h1 {
     font-size: 2.5rem;
@@ -87,37 +88,67 @@
   </div>
 </div>
 
-{% if resultados %}
-  <div class="resultado fade-in">
-    <h3>Resultados encontrados:</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Distribuidor</th>
-          <th>Dirección</th>
-          <th>Precio</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in resultados %}
-        <tr>
-          <td>{{ item.nombre }}</td>
-          <td>{{ item.direccion }}</td>
-          <td>${{ item.precio|intcomma }}</td>
-        </tr>
+{% if resultados_retiro or resultados_despacho %}
+  <div class="resultados-container fade-in resultado">
+
+    {% if resultados_retiro %}
+      <h3>Precios con retiro en local:</h3>
+      <div class="tarjetas-resultados mb-4">
+        {% for item in resultados_retiro %}
+        <div class="tarjeta-precio">
+          <div class="precio-grande">${{ item.precio_retiro|punto_miles }}</div>
+          <div class="detalle">
+            <div class="distribuidor">{{ item.nombre }}</div>
+            <div class="direccion">{{ item.direccion }}</div>
+          </div>
+        </div>
         {% endfor %}
-      </tbody>
-    </table>
+      </div>
+    {% endif %}
+
+    {% if resultados_despacho %}
+      <h3>Precios con despacho a domicilio:</h3>
+      <div class="tarjetas-resultados">
+        {% for item in resultados_despacho %}
+        <div class="tarjeta-precio">
+          <div class="precio-grande">${{ item.precio_despacho|punto_miles }}</div>
+          <div class="detalle">
+            <div class="distribuidor">{{ item.nombre }}</div>
+            <div class="direccion">{{ item.direccion }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
   </div>
+
+
 {% elif resultado_simulado %}
-  <div class="resultado fade-in">
+  <div class="tarjeta-simulada fade-in resultado">
     <h3>Resultado estimado:</h3>
-    <p><strong>{{ resultado_simulado.distribuidor }}</strong></p>
-    <p>Precio estimado para cilindro de {{ resultado_simulado.tamano }} kg: <strong>{{ resultado_simulado.precio }}</strong></p>
+    <div class="precio-grande">${{ resultado_simulado.precio }}</div>
+    <div class="detalle">
+      <div class="distribuidor">{{ resultado_simulado.distribuidor }}</div>
+      <div class="tamano">Tamaño: {{ resultado_simulado.tamano }} kg</div>
+    </div>
   </div>
 
+{% elif request.GET.region and request.GET.comuna and request.GET.tamano %}
+  <div class="tarjeta-simulada fade-in resultado">
+    <h3>Resultado estimado:</h3>
+    <p class="fs-5 mb-2">❌ Aún no tenemos resultados para esta comuna.</p>
+    <p class="text-muted">
+      🙋‍♀️ ¿Nos ayudas a construir esta comunidad?<br>
+      💡 Agrega los precios de tu localidad iniciando sesión.
+    </p>
+    <a href="{% url 'login' %}" class="btn btn-primary mt-3">Iniciar sesión y aportar</a>
+  </div>
+{% endif %}
 
-  {% endif %}
+
+
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
